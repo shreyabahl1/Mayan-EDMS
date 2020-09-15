@@ -26,14 +26,15 @@ services:
       # MAYAN_APT_INSTALLS: "tesseract-ocr-deu tesseract-ocr-nld"
       # To add Python libraries, like LDAP, put then in the variable below.
       # MAYAN_PIP_INSTALLS: "python-ldap"
-    image: mayanedms/mayanedms:3
+      image:  mayanedms/mayanedms:3.4.17
     networks:
       - bridge
     ports:
-      - "80:8000"
+      - "81:8000"
     restart: unless-stopped
     volumes:
       - ${MAYAN_APP_VOLUME:-app}:/var/lib/mayan
+      - "/mayan/apps/dynamic_search/templates/dynamic_search:/opt/mayan-edms/lib/python3.7/site-packages/mayan/apps/dynamic_search/templates/dynamic_search/"
       # Optional volumes to access external data like staging or watch folders
       # - /opt/staging_files:/staging_files
       # - /opt/watch_folder:/watch_folder
@@ -97,17 +98,17 @@ services:
   #   restart: unless-stopped
 
   # Enable to use RabbitMQ
-  # rabbitmq:
-  #   image: rabbitmq:3.8-alpine
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: ${MAYAN_RABBITMQ_USER:-mayan}
-  #     RABBITMQ_DEFAULT_PASS: ${MAYAN_RABBITMQ_PASSWORD:-mayanrabbitpass}
-  #     RABBITMQ_DEFAULT_VHOST: ${MAYAN_RABBITMQ_VHOST:-mayan}
-  #   networks:
-  #     - bridge
-  #   restart: unless-stopped
-  #   volumes:
-  #      - ${MAYAN_RABBITMQ_VOLUME:-rabbitmq}:/var/lib/rabbitmq
+  #  rabbitmq:
+  #  image: rabbitmq:3.8-alpine
+  #  environment:
+  #    RABBITMQ_DEFAULT_USER: ${MAYAN_RABBITMQ_USER:-mayan}
+  #    RABBITMQ_DEFAULT_PASS: ${MAYAN_RABBITMQ_PASSWORD:-mayanrabbitpass}
+  #    RABBITMQ_DEFAULT_VHOST: ${MAYAN_RABBITMQ_VHOST:-mayan}
+  #  networks:
+  #    - bridge
+  #  restart: unless-stopped
+  #  volumes:
+  #       - ${MAYAN_RABBITMQ_VOLUME:-rabbitmq}:/var/lib/rabbitmq
 
   # Enable to run standalone workers
   # worker_fast:
@@ -148,7 +149,7 @@ services:
   #   volumes:
   #     - ${MAYAN_APP_VOLUME:-app}:/var/lib/mayan
 
-volumes:
+  volumes:
   app:
   postgres:
   rabbitmq:
