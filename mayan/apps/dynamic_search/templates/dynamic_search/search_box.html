@@ -20,8 +20,10 @@
                 {% else %}
                     <div class="col-sm-8">
                 {% endif %}
+                <label>
+                    Select Search model
                     <select class="form-control" id="selectSearchModel" name="_search_model_name">
-                        <label for="selectSearchModel">Search model</label>
+                </label>
                         {% for search_model in search_models %}
                         {{ search_model.self.get_full_name }}
                             <option {% if search_model.get_full_name == 'documents.Document' %}selected{% endif %} value="{{ search_model.get_full_name }}">{{ search_model }}</option>
